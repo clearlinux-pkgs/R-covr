@@ -4,7 +4,7 @@
 #
 Name     : R-covr
 Version  : 3.3.2
-Release  : 2
+Release  : 3
 URL      : https://cran.r-project.org/src/contrib/covr_3.3.2.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/covr_3.3.2.tar.gz
 Summary  : Test Coverage for Packages
@@ -26,6 +26,7 @@ BuildRequires : R-rex
 BuildRequires : R-withr
 BuildRequires : R-yaml
 BuildRequires : buildreq-R
+BuildRequires : util-linux
 
 %description
 # covr <img src="man/figures/logo.png" align="right" />
@@ -53,10 +54,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571284535
+export SOURCE_DATE_EPOCH=1571813411
 
 %install
-export SOURCE_DATE_EPOCH=1571284535
+export SOURCE_DATE_EPOCH=1571813411
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "

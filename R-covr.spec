@@ -4,7 +4,7 @@
 #
 Name     : R-covr
 Version  : 3.5.1
-Release  : 23
+Release  : 24
 URL      : https://cran.r-project.org/src/contrib/covr_3.5.1.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/covr_3.5.1.tar.gz
 Summary  : Test Coverage for Packages

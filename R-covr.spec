@@ -4,10 +4,10 @@
 # Using build pattern: R
 #
 Name     : R-covr
-Version  : 3.6.2
-Release  : 34
-URL      : https://cran.r-project.org/src/contrib/covr_3.6.2.tar.gz
-Source0  : https://cran.r-project.org/src/contrib/covr_3.6.2.tar.gz
+Version  : 3.6.3
+Release  : 35
+URL      : https://cran.r-project.org/src/contrib/covr_3.6.3.tar.gz
+Source0  : https://cran.r-project.org/src/contrib/covr_3.6.3.tar.gz
 Summary  : Test Coverage for Packages
 Group    : Development/Tools
 License  : BSD-3-Clause MIT
@@ -59,27 +59,30 @@ license components for the R-covr package.
 
 %prep
 %setup -q -n covr
+pushd ..
+cp -a covr buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1679940823
+export SOURCE_DATE_EPOCH=1697038134
 
 %install
-export SOURCE_DATE_EPOCH=1679940823
+export SOURCE_DATE_EPOCH=1697038134
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/R-covr
 cp %{_builddir}/covr/inst/www/shared/highlight.js/LICENSE %{buildroot}/usr/share/package-licenses/R-covr/998ba4f9efa902a7f49406a879497625be26ba64 || :
-export LANG=C.UTF-8
-export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
-export FCFLAGS="$FFLAGS -O3 -flto -fno-semantic-interposition "
-export FFLAGS="$FFLAGS -O3 -flto -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -flto -fno-semantic-interposition "
-export AR=gcc-ar
-export RANLIB=gcc-ranlib
-export LDFLAGS="$LDFLAGS  -Wl,-z -Wl,relro"
+LANG=C.UTF-8
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -O3 -flto -fno-semantic-interposition "
+FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -flto -fno-semantic-interposition "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -O3 -flto -fno-semantic-interposition "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -O3 -flto -fno-semantic-interposition "
+AR=gcc-ar
+RANLIB=gcc-ranlib
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS  -Wl,-z -Wl,relro"
 mkdir -p %{buildroot}/usr/lib64/R/library
 
 mkdir -p ~/.R
@@ -108,6 +111,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
 R CMD check --no-manual --no-examples --no-codoc . || :
 
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
